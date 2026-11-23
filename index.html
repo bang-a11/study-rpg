@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10131c">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="STUDY RPG">
+<title>STUDY RPG</title>
+<style>
+:root{--bg:#10131c;--panel:#191f2d;--panel2:#20283a;--line:#30394d;--text:#f4f6fb;--muted:#a5aec1;--gold:#f4c66a;--cyan:#73d6e8;--green:#79d6a2;--red:#f07883;--purple:#b59aff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#202943 0,#10131c 55%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;padding-bottom:88px}
+header{padding:calc(16px + env(safe-area-inset-top)) 18px 12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#10131ceF;backdrop-filter:blur(12px);z-index:5;border-bottom:1px solid #ffffff10}
+.logo{font-weight:900;letter-spacing:.14em;font-size:14px}.logo span{color:var(--gold)}.level{font-size:12px;color:var(--gold);border:1px solid #806c43;border-radius:20px;padding:6px 10px}
+main{max-width:760px;margin:auto;padding:16px}
+.hero{background:linear-gradient(135deg,#27344d,#1b2333 65%,#29243d);border:1px solid #43516d;border-radius:22px;padding:18px;box-shadow:0 12px 36px #0004}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.muted{color:var(--muted)}.small{font-size:12px}.big{font-size:32px;font-weight:850;letter-spacing:-1px}.bar{height:9px;background:#0d111a;border-radius:20px;overflow:hidden;margin-top:8px}.fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--cyan),var(--purple));transition:width .35s}
+.hpfill{background:linear-gradient(90deg,#e95d73,#ff9b83)}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.stat{background:#11172280;border:1px solid #ffffff12;border-radius:15px;padding:12px}.stat b{font-size:21px}.stat .small{display:block;margin-bottom:5px}
+.tabs{display:flex;gap:8px;margin:18px 0 14px;overflow:auto}.tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:12px;padding:10px 14px;white-space:nowrap;font-weight:700}.tab.active{background:#303b54;color:white;border-color:#637697}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}.panel h2{font-size:16px;margin:0 0 12px}.subjectgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.subject{background:var(--panel2);border:1px solid var(--line);padding:13px;border-radius:14px;text-align:left;color:var(--text)}.subject strong{display:block;margin-bottom:4px}.subject small{color:var(--muted)}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.primary{background:linear-gradient(100deg,#627de0,#8a70d6);border:0;color:white;border-radius:13px;padding:12px 15px;font-weight:800}.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:10px 13px;font-weight:700}.danger{color:#ffabb2;border-color:#81434d}.gold{color:var(--gold)}.question{font-size:19px;line-height:1.65;white-space:pre-wrap;background:#111722;border:1px solid #303b50;border-radius:15px;padding:18px;min-height:120px;margin:12px 0}.answer{background:#172a2a;border:1px solid #356458;border-radius:14px;padding:15px;line-height:1.6;white-space:pre-wrap;margin:12px 0}.actions{display:flex;gap:9px;flex-wrap:wrap}.actions>*{flex:1}
+input,select,textarea{width:100%;background:#111722;border:1px solid var(--line);color:var(--text);border-radius:11px;padding:11px;margin:5px 0 12px}textarea{min-height:90px;resize:vertical}label{font-size:12px;color:var(--muted);display:block}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.notice{font-size:12px;color:var(--muted);line-height:1.55}.hidden{display:none!important}.toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:#f4c66a;color:#222;padding:12px 18px;border-radius:14px;font-weight:900;box-shadow:0 8px 30px #0008;z-index:20;animation:pop .25s ease}@keyframes pop{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}
+nav{position:fixed;bottom:0;left:0;right:0;padding:9px 12px calc(9px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;background:#121722f2;border-top:1px solid var(--line);backdrop-filter:blur(15px);z-index:10}.navbtn{background:none;border:0;color:var(--muted);font-size:11px;padding:5px}.navbtn span{display:block;font-size:20px;margin-bottom:3px}.navbtn.active{color:var(--gold)}
+.deckitem{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:11px 0}.pill{font-size:11px;border-radius:20px;padding:4px 8px;background:#303b54;color:#cbd7f4}.xp{color:var(--gold);font-weight:800}.empty{text-align:center;color:var(--muted);padding:25px 10px}
+@media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="logo">✦ STUDY <span>RPG</span></div><div class="level" id="levelBadge">LEVEL 1</div></header>
+<main>
+<section id="homePage">
+ <div class="hero">
+  <div class="row"><div><div class="small muted">PLAYER STATUS</div><div class="big" id="totalXp">0 XP</div></div><div style="font-size:42px">✧</div></div>
+  <div class="row small muted"><span id="levelText">LEVEL 1</span><span id="nextXp">次のレベルまで 100 XP</span></div><div class="bar"><div class="fill" id="xpBar" style="width:0%"></div></div>
+  <div class="stats">
+   <div class="stat"><span class="small">♥ HP</span><b id="hpText">100 / 100</b><div class="bar"><div class="fill hpfill" id="hpBar" style="width:100%"></div></div></div>
+   <div class="stat"><span class="small">🔥 連続正解</span><b id="streakText">0問</b><span class="small muted">5問でボーナス</span></div>
+   <div class="stat"><span class="small">✓ 今日の正解</span><b id="todayText">0問</b><span class="small muted">毎日の積み上げ</span></div>
+   <div class="stat"><span class="small">🏅 獲得称号</span><b id="badgeText">0個</b><span class="small muted">実績コレクション</span></div>
+  </div>
+ </div>
+ <div class="panel"><div class="row"><h2>科目別 EXP</h2><button class="secondary" onclick="showPage('study')">勉強する →</button></div><div id="subjectStats"></div></div>
+ <div class="panel"><h2>今日のミッション</h2><div class="row"><span>問題を5問正解する</span><b id="missionCount">0 / 5</b></div><div class="bar"><div class="fill" id="missionBar" style="width:0%"></div></div><p class="notice">達成すると追加で +100 EXP。無理のない範囲で進めよう。</p></div>
+</section>
+<section id="studyPage" class="hidden">
+ <div class="panel"><div class="row"><h2>STUDY DECK</h2><span class="pill" id="deckCount">0 cards</span></div><label>科目を選択</label><select id="studySubject" onchange="renderStudy()"></select><div id="cardArea"><div class="empty">問題を追加すると、ここにカードが表示されるよ。</div></div></div>
+</section>
+<section id="managePage" class="hidden">
+ <div class="panel"><h2>＋ 問題を追加</h2>
+ <label>科目</label><select id="newSubject"><option>数学</option><option>物理</option><option>化学</option><option>英語</option><option>その他</option></select>
+ <label>問題</label><textarea id="newFront" placeholder="問題文を入力"></textarea>
+ <label>解答・解説</label><textarea id="newBack" placeholder="答えや解説を入力"></textarea>
+ <div class="formgrid"><div><label>難易度</label><select id="newDifficulty"><option value="5">基礎・5 EXP</option><option value="20">標準・20 EXP</option><option value="50" selected>応用・50 EXP</option><option value="100">難問・100 EXP</option><option value="250">最難関・250 EXP</option><option value="custom">個別設定</option></select></div><div><label>EXP（個別設定時）</label><input id="newXp" type="number" min="1" max="5000" value="100"></div></div>
+ <button class="primary" style="width:100%" onclick="addCard()">カードを登録</button></div>
+ <div class="panel"><h2>📥 CSV一括登録</h2><p class="notice">CSVの列順：subject,front,back,xp。1行につき1問。ExcelからCSV UTF-8で保存して読み込めるよ。</p><input id="csvFile" type="file" accept=".csv,text/csv"><button class="secondary" style="width:100%" onclick="importCsv()">CSVを読み込む</button><p class="notice">例：数学,"二次方程式 x²−1=0 を解け","x=±1",30</p></div>
+ <div class="panel"><div class="row"><h2>登録済みカード</h2><button class="secondary danger" onclick="clearCards()">全カード削除</button></div><div id="cardList"></div></div>
+</section>
+<section id="statusPage" class="hidden">
+ <div class="panel"><h2>PLAYER STATUS</h2><div class="big" id="statusLevel">LEVEL 1</div><p class="muted" id="statusXp">0 total EXP</p><div id="subjectStats2"></div></div>
+ <div class="panel"><h2>🏆 ACHIEVEMENTS</h2><div id="achievements"></div></div>
+ <div class="panel"><h2>HPルール</h2><p>学習していない時間は10分ごとに1 HP減少。23:00〜翌8:00は減少しない。HPは0未満にならず、正解時に少し回復する設定。</p><p class="notice">HPは学習のきっかけを作るゲーム内指標。睡眠・体調・学校生活を優先してね。HPによって過去のEXPや実績は失われないよ。</p><button class="secondary" onclick="exportData()">バックアップを書き出す</button> <button class="secondary" onclick="document.getElementById('backupFile').click()">バックアップを復元</button><input id="backupFile" type="file" accept=".json,application/json" class="hidden" onchange="importBackup()"></div>
+</section>
+</main>
+<nav><button class="navbtn active" data-page="home" onclick="showPage('home')"><span>⌂</span>HOME</button><button class="navbtn" data-page="study" onclick="showPage('study')"><span>▤</span>STUDY</button><button class="navbtn" data-page="manage" onclick="showPage('manage')"><span>＋</span>DECK</button><button class="navbtn" data-page="status" onclick="showPage('status')"><span>♙</span>STATUS</button></nav>
+<script>
+const KEY='studyRpg_v1';
+const defaults=[
+ {id:'d1',subject:'数学',front:'次の漸化式の一般項を求めよ。\\naₙ₊₂ = 3aₙ₊₁ − 2aₙ\\na₁=1, a₂=3',back:'特性方程式 r²−3r+2=0 より r=1,2。\\naₙ=A+B·2ⁿ。初期条件から A=−1, B=1。\\nしたがって aₙ=2ⁿ−1。',xp:100},
+ {id:'d2',subject:'物理',front:'等加速度直線運動の変位を、初速度 v₀・加速度 a・時間 t で表せ。',back:'x−x₀ = v₀t + ½at²',xp:20},
+ {id:'d3',subject:'化学',front:'酢酸とエタノールから生成するエステルの名称は？',back:'酢酸エチル',xp:20},
+ {id:'d4',subject:'英語',front:'「ますます」を意味する副詞句 increasingly の例文を1つ思い出そう。',back:'例：It is becoming increasingly difficult to solve the problem.',xp:5}
+];
+let state=load();
+function fresh(){return {cards:defaults, totalXp:0,hp:100,lastSeen:Date.now(),hpRemainder:0,streak:0,today:0,todayDate:new Date().toLocaleDateString('ja-JP'),subjectXp:{},badges:[],answered:{},missionClaimed:false}}
+function load(){try{let s=JSON.parse(localStorage.getItem(KEY));return s?{...fresh(),...s}:fresh()}catch(e){return fresh()}}
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function level(){return Math.floor(state.totalXp/500)+1}
+function xpInLevel(){return state.totalXp%500}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function eligibleMinutes(from,to){
+ let total=0, cursor=new Date(from);
+ while(cursor<to){let next=new Date(cursor);next.setMinutes(next.getMinutes()+1);if(next>to)next=to;
+  let h=cursor.getHours();if(!(h>=23||h<8))total+=(next-cursor)/60000;cursor=next;
+ }return total;
+}
+function applyHp(){let now=Date.now();let mins=eligibleMinutes(state.lastSeen,new Date(now));let accumulated=(state.hpRemainder||0)+mins;let loss=Math.floor(accumulated/10);state.hpRemainder=accumulated-loss*10;if(loss>0)state.hp=Math.max(0,state.hp-loss);state.lastSeen=now;save()}
+function updateDay(){let d=new Date().toLocaleDateString('ja-JP');if(d!==state.todayDate){state.today=0;state.todayDate=d;state.missionClaimed=false;}}
+function toast(t){let el=document.createElement('div');el.className='toast';el.textContent=t;document.body.appendChild(el);setTimeout(()=>el.remove(),1900)}
+function refresh(){
+ updateDay();let lv=level();document.getElementById('levelBadge').textContent='LEVEL '+lv;document.getElementById('totalXp').textContent=state.totalXp.toLocaleString()+' XP';document.getElementById('levelText').textContent='LEVEL '+lv;document.getElementById('nextXp').textContent='次のレベルまで '+(500-xpInLevel())+' XP';document.getElementById('xpBar').style.width=(xpInLevel()/500*100)+'%';
+ document.getElementById('hpText').textContent=state.hp+' / 100';document.getElementById('hpBar').style.width=state.hp+'%';document.getElementById('streakText').textContent=state.streak+'問';document.getElementById('todayText').textContent=state.today+'問';document.getElementById('badgeText').textContent=state.badges.length+'個';document.getElementById('missionCount').textContent=Math.min(state.today,5)+' / 5';document.getElementById('missionBar').style.width=Math.min(state.today/5*100,100)+'%';
+ let subjects=[...new Set([...state.cards.map(c=>c.subject),...Object.keys(state.subjectXp)])];let html=subjects.map(s=>`<div style="margin:12px 0"><div class="row"><b>${escapeHtml(s)}</b><span class="xp">${state.subjectXp[s]||0} EXP</span></div><div class="bar"><div class="fill" style="width:${Math.min((state.subjectXp[s]||0)/10,100)}%"></div></div></div>`).join('')||'<p class="muted">カードを登録すると表示されます。</p>';document.getElementById('subjectStats').innerHTML=html;document.getElementById('subjectStats2').innerHTML=html;document.getElementById('statusLevel').textContent='LEVEL '+lv;document.getElementById('statusXp').textContent=state.totalXp+' total EXP';
+ document.getElementById('achievements').innerHTML=state.badges.length?state.badges.map(b=>`<div class="deckitem">🏅 ${escapeHtml(b)}</div>`).join(''):'<p class="muted">まだ称号はありません。5問連続正解などで獲得できます。</p>';
+ renderSelectors();renderList();save();
+}
+function showPage(p){['home','study','manage','status'].forEach(x=>document.getElementById(x+'Page').classList.toggle('hidden',x!==p));document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===p));if(p==='study')renderStudy();if(p==='manage')renderList();refresh()}
+function renderSelectors(){let opts=[...new Set(state.cards.map(c=>c.subject))];let s=document.getElementById('studySubject'),old=s.value;s.innerHTML=opts.map(x=>`<option>${escapeHtml(x)}</option>`).join('')||'<option>数学</option>';if(opts.includes(old))s.value=old}
+function renderStudy(){let subject=document.getElementById('studySubject').value;let cards=state.cards.filter(c=>c.subject===subject);document.getElementById('deckCount').textContent=cards.length+' cards';let c=cards[0];let area=document.getElementById('cardArea');if(!c){area.innerHTML='<div class="empty">この科目にはまだカードがありません。DECKから追加してね。</div>';return}
+ let idx=Number(area.dataset.idx||0)%cards.length;c=cards[idx];area.dataset.id=c.id;area.dataset.idx=idx;
+ area.innerHTML=`<div class="row"><span class="pill">${escapeHtml(c.subject)}</span><span class="xp">+${c.xp} EXP</span></div><div class="question">${escapeHtml(c.front)}</div><div id="answerBox" class="answer hidden">${escapeHtml(c.back)}</div><button class="primary" style="width:100%" id="revealBtn" onclick="reveal()">答えを表示</button><div id="gradeBtns" class="actions hidden" style="margin-top:10px"><button class="primary" onclick="grade(true)">✓ 正解</button><button class="secondary" onclick="grade(false)">復習する</button></div><div class="row" style="margin-top:14px"><button class="secondary" onclick="moveCard(-1)">← 前へ</button><span class="small muted">${idx+1} / ${cards.length}</span><button class="secondary" onclick="moveCard(1)">次へ →</button></div>`;
+}
+function reveal(){document.getElementById('answerBox').classList.remove('hidden');document.getElementById('revealBtn').classList.add('hidden');document.getElementById('gradeBtns').classList.remove('hidden')}
+function moveCard(d){let area=document.getElementById('cardArea');area.dataset.idx=Number(area.dataset.idx||0)+d;renderStudy()}
+function grade(ok){let id=document.getElementById('cardArea').dataset.id;let c=state.cards.find(x=>x.id===id);if(!c)return;if(ok){let first=!state.answered[id];let earned=first?c.xp:Math.max(1,Math.floor(c.xp*.2));state.totalXp+=earned;state.subjectXp[c.subject]=(state.subjectXp[c.subject]||0)+earned;state.streak++;state.today++;state.hp=Math.min(100,state.hp+2);state.lastSeen=Date.now();state.hpRemainder=0;toast('+'+earned+' EXP ✦');if(state.streak%5===0){state.totalXp+=100;state.subjectXp[c.subject]+=100;state.badges.push('5連続正解');toast('✦ 5 COMBO! +100 BONUS XP ✦')}if(level()>Number(localStorage.getItem('lastLevel')||1)){localStorage.setItem('lastLevel',level());state.badges.push('LEVEL UP '+level());toast('LEVEL UP! LEVEL '+level())}if(state.today>=5&&!state.missionClaimed){state.totalXp+=100;state.missionClaimed=true;state.badges.push('デイリーミッション達成');toast('MISSION CLEAR! +100 XP')}state.answered[id]=true;}else{state.streak=0;toast('復習リストに戻そう。EXPは失わないよ')};save();refresh();let a=document.getElementById('cardArea');a.dataset.idx=Number(a.dataset.idx||0)+1;renderStudy()}
+function addCard(){let f=document.getElementById('newFront').value.trim(),b=document.getElementById('newBack').value.trim();if(!f||!b){toast('問題と解答を入力してね');return}let d=document.getElementById('newDifficulty').value,xp=d==='custom'?Number(document.getElementById('newXp').value):Number(d);if(!Number.isFinite(xp)||xp<1||xp>5000){toast('EXPは1〜5000で設定してね');return}state.cards.push({id:'c'+Date.now()+Math.random().toString(16).slice(2),subject:document.getElementById('newSubject').value,front:f,back:b,xp});document.getElementById('newFront').value='';document.getElementById('newBack').value='';save();refresh();toast('カードを登録したよ！')}
+function renderList(){let el=document.getElementById('cardList');el.innerHTML=state.cards.length?state.cards.map(c=>`<div class="deckitem"><div style="min-width:0"><b>${escapeHtml(c.subject)}</b><div class="small muted" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px">${escapeHtml(c.front)}</div></div><span class="xp">${c.xp} XP</span><button class="secondary danger" onclick="deleteCard('${c.id}')">削除</button></div>`).join(''):'<p class="empty">カードはまだありません。</p>'}
+function deleteCard(id){if(!confirm('このカードを削除する？'))return;state.cards=state.cards.filter(c=>c.id!==id);save();refresh()}
+function clearCards(){if(!confirm('登録したカードをすべて削除する？'))return;state.cards=[];save();refresh()}
+function parseCsvLine(line){let out=[],v='',q=false;for(let i=0;i<line.length;i++){let ch=line[i];if(ch==='"'&&line[i+1]==='"'&&q){v+='"';i++}else if(ch==='"')q=!q;else if(ch===','&&!q){out.push(v);v=''}else v+=ch}out.push(v);return out}
+function importCsv(){let file=document.getElementById('csvFile').files[0];if(!file){toast('CSVファイルを選択してね');return}let r=new FileReader();r.onload=()=>{let lines=String(r.result).replace(/^\uFEFF/,'').split(/\r?\n/).filter(x=>x.trim());let added=0;lines.forEach((line,i)=>{let a=parseCsvLine(line);if(i===0&&a[0].toLowerCase()==='subject')return;if(a.length<4)return;let xp=Number(a[3]);if(!a[0]||!a[1]||!a[2]||!Number.isFinite(xp)||xp<1)return;state.cards.push({id:'csv'+Date.now()+Math.random().toString(16).slice(2),subject:a[0],front:a[1],back:a[2],xp});added++});save();refresh();toast(added+'問を読み込んだよ')};r.readAsText(file,'UTF-8')}
+function exportData(){let blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='study-rpg-backup.json';a.click();URL.revokeObjectURL(a.href)}
+function importBackup(){let f=document.getElementById('backupFile').files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!Array.isArray(x.cards))throw 0;state={...fresh(),...x,lastSeen:Date.now()};save();refresh();toast('バックアップを復元したよ')}catch(e){toast('ファイルを読み込めませんでした')}};r.readAsText(f)}
+applyHp();refresh();setInterval(()=>{applyHp();refresh()},60000);
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){navigator.serviceWorker.register('./sw.js').catch(()=>{})}
+</script>
+</body></html>
